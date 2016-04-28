@@ -11,20 +11,31 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var AppComponent;
+    var Hero, AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
+            Hero = (function () {
+                function Hero() {
+                }
+                return Hero;
+            }());
+            exports_1("Hero", Hero);
             AppComponent = (function () {
                 function AppComponent() {
+                    this.title = 'Heroes of Newerth';
+                    this.hero = {
+                        id: 1,
+                        name: 'Devourer'
+                    };
                 }
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: '<h1>Er Mer Gerd. It works</h1>'
+                        template: "\n    <h1>{{title}}</h1>\n    <h2>{{hero.name}} details</h2>\n    <div>\n      <label>id:</label>\n       {{hero.id}}\n    </div>\n    <div>\n      <label>name: </label>\n      <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n    </div>"
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
