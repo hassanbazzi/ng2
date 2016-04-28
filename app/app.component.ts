@@ -11,24 +11,25 @@ export class Hero {
     <h1>{{title}}</h1>
     <h2>My Heroes</h2>
     <ul class="heroes">
-      <li *ngFor="#hero of heroes">
+      <li
+      *ngFor="#hero of heroes"
+      (click)="onSelect(hero)"
+      [class.selected]="hero === selectedHero">
         <span class="badge">{{hero.id}}</span> {{hero.name}}
       </li>
     </ul>
-    <h2>{{hero.name}} details</h2>
-    <div>
-      <label>id:</label>
-       {{hero.id}}
-    </div>
-    <div>
-      <label>name: </label>
-      <input [(ngModel)]="hero.name" placeholder="name">
+    <div *ngIf="selectedHero">
+      <h2>{{selectedHero.name}} details</h2>
+      <div>
+        <label>id:</label>
+         {{selectedHero.id}}
+      </div>
+      <div>
+        <label>name: </label>
+        <input [(ngModel)]="selectedHero.name" placeholder="name">
+      </div>
     </div>`,
     styles:[`
-  .selected {
-    background-color: #CFD8DC !important;
-    color: white;
-  }
   .heroes {
     margin: 0 0 2em 0;
     list-style-type: none;
@@ -39,20 +40,19 @@ export class Hero {
     position: relative;
     background-color: #524E50;
     color: #eaeaea;
-    margin: 0 .5rem .5rem 0;
+    margin: 0 .75rem .75rem 0;
     padding-right: .5em;
     display: inline-block;
     border-radius: 4px;
     transition: all .3s;
     border: 1px solid #232323;
   }
-  .heroes li.selected:hover {
-    background-color: #BBD8DC !important;
-    color: white;
+  .heroes li.selected {
+    transform: scale(1.1);
+    background-color: #3C383A;
   }
   .heroes li:hover {
     background-color: #3C383A;
-    transform: scale(1.05);
   }
   .heroes .badge {
     display: inline-block;
@@ -71,11 +71,9 @@ export class Hero {
 
 export class AppComponent {
   title = 'Heroes of Newerth';
-  hero: Hero = {
-    id: 1,
-    name: 'Devourer'
-  }
+  selectedHero: Hero;
   public heroes = HEROES;
+  onSelect(hero: Hero) { this.selectedHero = hero; }
 }
 var HEROES: Hero[] = [
   { "id": 11, "name": "Devourer" },
